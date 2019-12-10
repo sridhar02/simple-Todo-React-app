@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Typography, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import Radio, { RadioProps } from '@material-ui/core/Radio';
+import Radio from '@material-ui/core/Radio';
 
 const listStyles = theme => ({
   itemAlignment: {
+    margin: theme.spacing(1),
     display: 'flex',
     justifyContent: 'flex-start',
     borderBottom: '1px solid #ddd'
@@ -51,7 +52,8 @@ class _Todo extends Component {
     super(props);
     this.state = {
       item: '',
-      todoList: []
+      todoList: [],
+      added: false
     };
   }
 
@@ -65,32 +67,44 @@ class _Todo extends Component {
     event.preventDefault();
     this.setState({
       item: '',
-      todoList: [...this.state.todoList, this.state.item]
+      todoList: [...this.state.todoList, this.state.item],
+      added: false
+    });
+  };
+
+  addItem = event => {
+    this.setState({
+      added: true
     });
   };
 
   render() {
     const { classes } = this.props;
-    const { item, todoList } = this.state;
+    const { item, todoList, added } = this.state;
     console.log(item, todoList);
+    const addItem = added ? (
+      <form onSubmit={this.handleSubmit}>
+        <Radio />
+        <TextField
+          className={classes.texfield}
+          id="standard-basic"
+          value={this.state.item}
+          onChange={this.handleChange}
+        />
+        <Button type="submit" hidden></Button>
+      </form>
+    ) : (
+      <div></div>
+    );
     return (
       <div className={classes.background}>
         <div className={classes.header}>
           <Typography variant="h4">Todo</Typography>
-          <Button>
+          <Button onClick={this.addItem}>
             <AddIcon />
           </Button>
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <Radio />
-          <TextField
-            className={classes.texfield}
-            id="standard-basic"
-            value={this.state.item}
-            onChange={this.handleChange}
-          />
-          <Button type="submit" hidden></Button>
-        </form>
+        {addItem}
         {todoList.map(item => (
           <List key={item} item={item} />
         ))}

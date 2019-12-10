@@ -1,24 +1,30 @@
 import React, { Component } from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Typography, TextField } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
 const listStyles = theme => ({
   itemAlignment: {
     margin: theme.spacing(1),
     display: 'flex',
-    justifyContent: 'flex-start',
-    borderBottom: '1px solid grey'
+    justifyContent: 'flex-start'
   },
   radio: {
     width: '20px',
-    marginTop: theme.spacing(1.2),
-    border: '1px solid grey'
+    height: '20px',
+    margin: theme.spacing(1),
+    padding: theme.spacing(1),
+    border: '3px solid white',
+    backgroundColor: 'black'
   },
   todoName: {
-    margin: theme.spacing(1),
-    color: 'white'
+    margin: theme.spacing(0.5),
+    color: 'white',
+    width: '100%',
+    borderBottom: '1px solid grey',
+    display: 'flex',
+    justifyContent: 'flex-start'
   }
 });
 
@@ -50,6 +56,7 @@ const todoStyles = theme => ({
   },
   input: {
     width: '100%',
+    fontSize: '15px',
     backgroundColor: 'black',
     color: 'white',
     padding: theme.spacing(2),
@@ -68,7 +75,12 @@ const todoStyles = theme => ({
     backgroundColor: 'white'
   },
   addButton: {
-    backgroundColor: 'grey'
+    backgroundColor: 'grey',
+    padding: theme.spacing(1),
+    '&:hover': {
+      color: 'white',
+      backgroundColor: 'grey'
+    }
   }
 });
 

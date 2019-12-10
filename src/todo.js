@@ -3,28 +3,30 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Typography, TextField } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import Radio from '@material-ui/core/Radio';
 
 const listStyles = theme => ({
   itemAlignment: {
     margin: theme.spacing(1),
     display: 'flex',
     justifyContent: 'flex-start',
-    borderBottom: '1px solid #ddd'
+    borderBottom: '1px solid grey'
   },
   radio: {
-    width: '20px'
+    width: '20px',
+    marginTop: theme.spacing(1.2),
+    border: '1px solid grey'
   },
   todoName: {
-    marginTop: theme.spacing(1.2)
+    margin: theme.spacing(1),
+    color: 'white'
   }
 });
 
 function _List({ item, classes }) {
   return (
     <div className={classes.itemAlignment}>
-      <Radio className={classes.radio} />
-      <Typography variant="body2" className={classes.todoName}>
+      <input type="radio" className={classes.radio} />
+      <Typography variant="body1" className={classes.todoName}>
         {item}
       </Typography>
     </div>
@@ -34,16 +36,39 @@ function _List({ item, classes }) {
 const List = withStyles(listStyles)(_List);
 
 const todoStyles = theme => ({
-  background: {
-    backgroundColor: 'white'
+  container: {
+    backgroundColor: 'black',
+    padding: theme.spacing(2),
+    height: '920px'
   },
   header: {
+    color: 'yellow',
     display: 'flex',
     justifyContent: 'space-between',
-    borderBottom: '1px solid #ddd'
+    borderBottom: '1px solid grey',
+    paddingBottom: theme.spacing(1)
   },
-  texfield: {
-    width: '90%'
+  input: {
+    width: '100%',
+    backgroundColor: 'black',
+    color: 'white',
+    padding: theme.spacing(2),
+    borderRadius: '3px',
+    border: 0,
+    borderBottom: '1px solid grey',
+    '&:hover': {
+      border: 0,
+      borderBottom: '1px solid grey'
+    }
+  },
+  form: {
+    color: 'white'
+  },
+  radio: {
+    backgroundColor: 'white'
+  },
+  addButton: {
+    backgroundColor: 'grey'
   }
 });
 
@@ -83,10 +108,9 @@ class _Todo extends Component {
     const { item, todoList, added } = this.state;
     console.log(item, todoList);
     const addItem = added ? (
-      <form onSubmit={this.handleSubmit}>
-        <Radio />
-        <TextField
-          className={classes.texfield}
+      <form onSubmit={this.handleSubmit} className={classes.form}>
+        <input
+          className={classes.input}
           id="standard-basic"
           value={this.state.item}
           onChange={this.handleChange}
@@ -97,11 +121,11 @@ class _Todo extends Component {
       <div></div>
     );
     return (
-      <div className={classes.background}>
+      <div className={classes.container}>
         <div className={classes.header}>
           <Typography variant="h4">Todo</Typography>
-          <Button onClick={this.addItem}>
-            <AddIcon />
+          <Button onClick={this.addItem} className={classes.addButton}>
+            <AddIcon className={classes.addIcon} />
           </Button>
         </div>
         {addItem}

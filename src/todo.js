@@ -109,6 +109,11 @@ class _Todo extends Component {
     });
   };
 
+  componentDidUpdate() {
+    const { todoList } = this.state;
+    localStorage.setItem('list', todoList);
+  }
+
   addItem = event => {
     this.setState({
       added: true
@@ -117,17 +122,17 @@ class _Todo extends Component {
 
   render() {
     const { classes } = this.props;
-    const { item, todoList, added } = this.state;
-    console.log(item, todoList);
+    const { todoList, added } = this.state;
     const addItem = added ? (
       <form onSubmit={this.handleSubmit} className={classes.form}>
         <input
           className={classes.input}
-          id="standard-basic"
           value={this.state.item}
           onChange={this.handleChange}
         />
-        <Button type="submit" hidden></Button>
+        <Button type="submit" hidden>
+          submit
+        </Button>
       </form>
     ) : (
       <div></div>

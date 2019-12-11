@@ -101,12 +101,14 @@ class _Todo extends Component {
   };
 
   handleSubmit = event => {
-    event.preventDefault();
-    this.setState({
-      item: '',
-      todoList: [...this.state.todoList, this.state.item],
-      added: false
-    });
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      this.setState({
+        item: '',
+        todoList: [...this.state.todoList, this.state.item],
+        added: false
+      });
+    }
   };
 
   componentDidUpdate() {
@@ -124,15 +126,12 @@ class _Todo extends Component {
     const { classes } = this.props;
     const { todoList, added } = this.state;
     const addItem = added ? (
-      <form onSubmit={this.handleSubmit} className={classes.form}>
+      <form onKeyDown={this.handleSubmit} className={classes.form}>
         <input
           className={classes.input}
           value={this.state.item}
           onChange={this.handleChange}
         />
-        <Button type="submit" hidden>
-          submit
-        </Button>
       </form>
     ) : (
       <div></div>

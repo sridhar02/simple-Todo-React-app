@@ -126,13 +126,12 @@ class _Todo extends Component {
     const { classes } = this.props;
     const { todoList, added } = this.state;
     const addItem = added ? (
-      <form onKeyDown={this.handleSubmit} className={classes.form}>
-        <input
-          className={classes.input}
-          value={this.state.item}
-          onChange={this.handleChange}
-        />
-      </form>
+      <input
+        onKeyDown={this.handleSubmit}
+        className={classes.input}
+        value={this.state.item}
+        onChange={this.handleChange}
+      />
     ) : (
       <div></div>
     );

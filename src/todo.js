@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import Radio from '@material-ui/core/Radio';
 
 const listStyles = theme => ({
   itemAlignment: {
@@ -11,12 +12,13 @@ const listStyles = theme => ({
     justifyContent: 'flex-start'
   },
   radio: {
-    width: '20px',
-    height: '20px',
-    margin: theme.spacing(1),
-    padding: theme.spacing(1),
-    border: '3px solid white',
-    backgroundColor: 'black'
+    borderColor: 'white',
+    color: 'white',
+    '&:hover': {
+      color: 'white',
+      borderColor: 'white',
+      backgroundColor: 'grey'
+    }
   },
   todoName: {
     margin: theme.spacing(0.5),
@@ -31,7 +33,7 @@ const listStyles = theme => ({
 function _List({ item, classes }) {
   return (
     <div className={classes.itemAlignment}>
-      <input type="radio" className={classes.radio} />
+      <Radio type="radio" className={classes.radio} />
       <Typography variant="body1" className={classes.todoName}>
         {item}
       </Typography>
@@ -111,9 +113,22 @@ class _Todo extends Component {
     }
   };
 
+  componentDidMount() {
+    const list = localStorage.getItem('list');
+    const parsedList = JSON.parse(list);
+    console.log(parsedList);
+    if (list == null) {
+      return false;
+    } else {
+      this.setState({
+        todoList: parsedList
+      });
+    }
+  }
+
   componentDidUpdate() {
     const { todoList } = this.state;
-    localStorage.setItem('list', todoList);
+    localStorage.setItem('list', JSON.stringify(todoList));
   }
 
   addItem = event => {

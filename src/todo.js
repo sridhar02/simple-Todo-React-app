@@ -77,10 +77,7 @@ class _List extends Component {
           autoHideDuration={1000}
           open={open}
           onClose={this.handleClose}
-          ContentProps={{
-            'aria-describedby': 'message-id'
-          }}
-          message={<span id="message-id">Task Completed</span>}
+          message={<span>Task Completed</span>}
         />
       </div>
     );

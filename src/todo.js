@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Button, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Radio from '@material-ui/core/Radio';
+import Snackbar from '@material-ui/core/Snackbar';
 
 const listStyles = theme => ({
   itemAlignment: {
@@ -30,15 +31,59 @@ const listStyles = theme => ({
   }
 });
 
-function _List({ item, classes }) {
-  return (
-    <div className={classes.itemAlignment}>
-      <Radio type="radio" className={classes.radio} />
-      <Typography variant="body1" className={classes.todoName}>
-        {item}
-      </Typography>
-    </div>
-  );
+class _List extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      vertical: 'top',
+      horizontal: 'center'
+    };
+  }
+
+  taskCompleted = item => {
+    this.setState({
+      open: true
+    });
+    const list = localStorage.getItem('list');
+    const parsedList = JSON.parse(list);
+    const newList = parsedList.filter(task => task !== item);
+    localStorage.setItem('list', JSON.stringify(newList));
+  };
+
+  handleClose = () => {
+    const { fetchItems } = this.props;
+    this.setState({
+      open: false
+    });
+    fetchItems();
+  };
+  render() {
+    const { item, classes } = this.props;
+    const { vertical, horizontal, open } = this.state;
+    return (
+      <div className={classes.itemAlignment}>
+        <Radio
+          type="radio"
+          className={classes.radio}
+          onChange={() => this.taskCompleted(item)}
+        />
+        <Typography variant="body1" className={classes.todoName}>
+          {item}
+        </Typography>
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          key={`${vertical},${horizontal}`}
+          open={open}
+          onClose={this.handleClose}
+          ContentProps={{
+            'aria-describedby': 'message-id'
+          }}
+          message={<span id="message-id">Task Completed</span>}
+        />
+      </div>
+    );
+  }
 }
 
 const List = withStyles(listStyles)(_List);
@@ -47,7 +92,7 @@ const todoStyles = theme => ({
   container: {
     backgroundColor: 'black',
     padding: theme.spacing(2),
-    height: '920px'
+    height: '1080px'
   },
   header: {
     color: 'yellow',
@@ -113,10 +158,9 @@ class _Todo extends Component {
     }
   };
 
-  componentDidMount() {
+  fetchItems = () => {
     const list = localStorage.getItem('list');
     const parsedList = JSON.parse(list);
-    console.log(parsedList);
     if (list == null) {
       return false;
     } else {
@@ -124,6 +168,10 @@ class _Todo extends Component {
         todoList: parsedList
       });
     }
+  };
+
+  componentDidMount() {
+    this.fetchItems();
   }
 
   componentDidUpdate() {
@@ -160,7 +208,7 @@ class _Todo extends Component {
         </div>
         {addItem}
         {todoList.map(item => (
-          <List key={item} item={item} />
+          <List key={item} item={item} fetchItems={this.fetchItems} />
         ))}
       </div>
     );

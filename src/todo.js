@@ -17,8 +17,7 @@ const listStyles = theme => ({
     color: 'white',
     '&:hover': {
       color: 'white',
-      borderColor: 'white',
-      backgroundColor: 'grey'
+      borderColor: 'white'
     }
   },
   todoName: {
@@ -66,6 +65,7 @@ class _List extends Component {
         <Radio
           type="radio"
           className={classes.radio}
+          color="primary"
           onChange={() => this.taskCompleted(item)}
         />
         <Typography variant="body1" className={classes.todoName}>
@@ -74,6 +74,7 @@ class _List extends Component {
         <Snackbar
           anchorOrigin={{ vertical, horizontal }}
           key={`${vertical},${horizontal}`}
+          autoHideDuration={1000}
           open={open}
           onClose={this.handleClose}
           ContentProps={{

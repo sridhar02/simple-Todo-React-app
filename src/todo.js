@@ -44,10 +44,6 @@ class _List extends Component {
     this.setState({
       open: true
     });
-    const list = localStorage.getItem('list');
-    const parsedList = JSON.parse(list);
-    const newList = parsedList.filter(task => task !== item);
-    localStorage.setItem('list', JSON.stringify(newList));
   };
 
   handleClose = () => {
@@ -90,7 +86,8 @@ const todoStyles = theme => ({
   container: {
     backgroundColor: 'black',
     padding: theme.spacing(2),
-    height: '1080px'
+    height: '1080px',
+    width: '1888px'
   },
   header: {
     color: 'yellow',
@@ -100,7 +97,7 @@ const todoStyles = theme => ({
     paddingBottom: theme.spacing(1)
   },
   input: {
-    width: '100%',
+    width: '1830px',
     fontSize: '15px',
     backgroundColor: 'black',
     color: 'white',
@@ -192,6 +189,7 @@ class _Todo extends Component {
         className={classes.input}
         value={this.state.item}
         onChange={this.handleChange}
+        autoFocus
       />
     ) : (
       <div></div>

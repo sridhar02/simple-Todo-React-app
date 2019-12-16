@@ -47,11 +47,9 @@ class _List extends Component {
   };
 
   handleClose = () => {
-    const { fetchItems } = this.props;
     this.setState({
       open: false
     });
-    fetchItems();
   };
   render() {
     const { item, classes } = this.props;
@@ -204,7 +202,7 @@ class _Todo extends Component {
         </div>
         {addItem}
         {todoList.map(item => (
-          <List key={item} item={item} fetchItems={this.fetchItems} />
+          <List key={item} item={item} />
         ))}
       </div>
     );

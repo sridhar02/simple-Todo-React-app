@@ -83,9 +83,7 @@ const List = withStyles(listStyles)(_List);
 const todoStyles = theme => ({
   container: {
     backgroundColor: 'black',
-    padding: theme.spacing(2),
-    height: '1080px',
-    width: '1888px'
+    padding: theme.spacing(2)
   },
   header: {
     color: 'yellow',
@@ -115,7 +113,7 @@ const todoStyles = theme => ({
     backgroundColor: 'white'
   },
   addButton: {
-    backgroundColor: 'grey',
+    color: 'white',
     padding: theme.spacing(1),
     '&:hover': {
       color: 'white',

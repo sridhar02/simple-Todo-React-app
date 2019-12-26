@@ -93,12 +93,11 @@ const todoStyles = theme => ({
     paddingBottom: theme.spacing(1)
   },
   input: {
-    width: '1830px',
+    width: '100%',
     fontSize: '15px',
-    backgroundColor: 'black',
-    color: 'white',
+    backgroundColor: 'white',
     padding: theme.spacing(2),
-    borderRadius: '3px',
+    borderRadius: '5px',
     border: 0,
     borderBottom: '1px solid grey',
     '&:hover': {

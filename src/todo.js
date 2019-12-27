@@ -93,10 +93,11 @@ const todoStyles = theme => ({
     paddingBottom: theme.spacing(1)
   },
   input: {
-    width: '100%',
+    width: '98%',
     fontSize: '15px',
     backgroundColor: 'white',
     padding: theme.spacing(2),
+    marginTop: theme.spacing(1),
     borderRadius: '5px',
     border: 0,
     borderBottom: '1px solid grey',
@@ -142,8 +143,7 @@ class _Todo extends Component {
       event.preventDefault();
       this.setState({
         item: '',
-        todoList: [...this.state.todoList, this.state.item],
-        added: false
+        todoList: [...this.state.todoList, this.state.item]
       });
     }
   };
@@ -169,35 +169,25 @@ class _Todo extends Component {
     localStorage.setItem('list', JSON.stringify(todoList));
   }
 
-  addItem = event => {
-    this.setState({
-      added: true
-    });
-  };
-
   render() {
     const { classes } = this.props;
-    const { todoList, added } = this.state;
-    const addItem = added ? (
-      <input
-        onKeyDown={this.handleSubmit}
-        className={classes.input}
-        value={this.state.item}
-        onChange={this.handleChange}
-        autoFocus
-      />
-    ) : (
-      <div></div>
-    );
+    const { todoList } = this.state;
     return (
       <div className={classes.container}>
         <div className={classes.header}>
           <Typography variant="h4">Todo</Typography>
-          <Button onClick={this.addItem} className={classes.addButton}>
+          <Button className={classes.addButton}>
             <AddIcon className={classes.addIcon} />
           </Button>
         </div>
-        {addItem}
+        <input
+          onKeyDown={this.handleSubmit}
+          className={classes.input}
+          value={this.state.item}
+          onChange={this.handleChange}
+          autoFocus
+        />
+
         {todoList.map(item => (
           <List key={item} item={item} />
         ))}

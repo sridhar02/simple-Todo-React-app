@@ -96,7 +96,7 @@ const todoStyles = theme => ({
     width: '98%',
     fontSize: '15px',
     backgroundColor: 'white',
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     marginTop: theme.spacing(1),
     borderRadius: '5px',
     border: 0,
